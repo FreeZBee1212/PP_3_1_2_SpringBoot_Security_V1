@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
+<body>
+
+<!--<div th:each="person : ${index}">-->
+<!--    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">user</a>-->
+<!--    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getSurname()}">user</a>-->
+<!--    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getAge()}">user</a>-->
+<!--</div>-->
+
+<div th:each="user : ${index}">
+    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getUsername()}">user</a>
+    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getSurname()}">user</a>
+<!--    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getAge()}">user</a>-->
+    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getPassword()}">user</a>
+    <a th:href="@{/users/id(id=${user.getRoles()})}" th:text="${user.getRoles()}">user</a>
+</div>
+
+<br>
+<a th:href="@{/admin/users/new}">Create new User</a>
+<br>
+<a href="/logout">Logout</a>
+</body>
+</html>

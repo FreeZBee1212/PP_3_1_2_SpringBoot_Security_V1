@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>One user</title>
+</head>
+<body>
+
+<p th:text="${show.getUsername()}">VALUE</p>
+<p th:text="${show.getId()}">VALUE</p>
+<br>
+<a th:href="@{/admin/users/id/edit(id=${show.getId()})}">Edit this user</a>
+<br>
+
+<form th:method="POST" th:action="@{/admin/users/id(id=${show.getId()})}">
+    <input type="submit" VALUE="Delete">
+
+</form>
+<br>
+<a th:href="@{/admin/users}">Main page</a>
+
+
+</body>
+</html>
