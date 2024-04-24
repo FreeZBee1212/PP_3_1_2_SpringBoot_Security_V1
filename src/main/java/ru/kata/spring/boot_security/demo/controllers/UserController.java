@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -26,7 +27,7 @@ public class UserController {
         return "admin/users/index";
     }
 
-    @GetMapping("/users/id")
+    @GetMapping("/admin/users/id")
     public String showId(@RequestParam("id") int id, Model model) {
         model.addAttribute("show", userService.showOneUser(id));
         return "admin/users/show";
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("user") User user, @ModelAttribute("role") Role role) {
+    public String createUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin/users";
     }

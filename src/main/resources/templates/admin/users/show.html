@@ -6,8 +6,16 @@
 </head>
 <body>
 
-<p th:text="${show.getUsername()}">VALUE</p>
-<p th:text="${show.getId()}">VALUE</p>
+<label>ID пользователя:</label>
+    <p th:text="${show.getId()}">VALUE</p>
+<label>Роль пользователя:</label>
+    <p th:text="${show.getROLE()}">VALUE</p>
+<label>Имя пользователя:</label>
+    <p th:text="${show.getUsername()}">VALUE</p>
+<label>Фамилия пользователя:</label>
+    <p th:text="${show.getSurname()}">VALUE</p>
+<label>Возраст пользователя:</label>
+    <p th:text="${show.getAge()}">VALUE</p>
 <br>
 <a th:href="@{/admin/users/id/edit(id=${show.getId()})}">Edit this user</a>
 <br>

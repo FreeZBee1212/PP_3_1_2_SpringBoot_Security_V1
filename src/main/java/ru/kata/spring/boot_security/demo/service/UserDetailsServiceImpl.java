@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-
+import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
 
 
 import java.util.Collection;
@@ -33,45 +33,34 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
-        return new org.springframework.security.core.userdetails
-                .User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if(user.isEmpty()) {
+            throw new UsernameNotFoundException("User not found!");
+        }
+
+        return new UserDetailsImpl(user.get());
     }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-    }
-
-
+//    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//    }
 
 //    @Override
 //    @Transactional
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//
-//        Optional<User> user = userRepository.findByUsername(username);
-//
-//        if(user.isEmpty()) {
-//            throw new UsernameNotFoundException("User not found!");
-//        }
-//
+//        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
 //        return new org.springframework.security.core.userdetails
-//                .User(user.get().getUsername(), user.get().getPassword(), getAuthorities(user.get().getRoles()));
+//                .User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 //    }
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //
-//        Optional<User> user = userRepository.findByUsername(username);
-//
-//        if(user.isEmpty()) {
-//        throw new UsernameNotFoundException("User not found!");
-//        }
-//
-//        return new UserDetailsImpl(user.get());
+//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+//        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 //    }
-//   private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-//    }
+
+
+
+
 
 }

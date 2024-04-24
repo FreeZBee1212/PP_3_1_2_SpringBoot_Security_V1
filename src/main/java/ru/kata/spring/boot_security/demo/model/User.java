@@ -8,8 +8,8 @@ import java.util.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     @Column
     private String username;
     @Column
@@ -24,25 +24,25 @@ public class User {
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
-
     )
-    private Collection<Role> roles;
+    private Set<Role> roles = new HashSet<>();
+//    private Collection<Role> roles;
 
 
-//    @Column
-//    private String ROLE_ADMIN;
-//    @Column
-//    private String ROLE_USER;
+
+    @Column
+    private String ROLE;
+
 
     public User() {
     }
 
-    public User(String username, String surname, int age, String password, Collection<Role> roles) {
+    public User(String username, String surname, int age, String password, String ROLE) {
         this.username = username;
         this.surname = surname;
         this.age = age;
         this.password = password;
-        this.roles = roles;
+        this.ROLE = ROLE;
     }
 
     public String getUsername() {
@@ -61,11 +61,11 @@ public class User {
         this.password = password;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,12 +85,12 @@ public class User {
         this.age = age;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public String getROLE() {
+        return ROLE;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setROLE(String ROLE) {
+        this.ROLE = ROLE;
     }
 
     @Override
@@ -106,15 +106,5 @@ public class User {
         return Objects.hash(id, username, surname, age, password);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
-    }
+
 }

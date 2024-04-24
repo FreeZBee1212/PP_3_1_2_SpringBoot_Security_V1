@@ -13,15 +13,17 @@
 <!--</div>-->
 
 <div th:each="user : ${index}">
-    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getUsername()}">user</a>
-    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getSurname()}">user</a>
-<!--    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getAge()}">user</a>-->
-    <a th:href="@{/users/id(id=${user.getId()})}" th:text="${user.getPassword()}">user</a>
-    <a th:href="@{/users/id(id=${user.getRoles()})}" th:text="${user.getRoles()}">user</a>
+
+  <b> Имя пользователя: </b> <a th:href="@{/admin/users/id(id=${user.getId()})}" th:text="${user.getUsername()}">user</a>
+    <a th:text="${user.getSurname()}">user</a>
+   <b> Роль пользователя: </b> <a th:text="${user.getROLE()}">user</a>
+
 </div>
 
 <br>
 <a th:href="@{/admin/users/new}">Create new User</a>
+<br>
+<a th:href="@{/admin}">Admin page</a>
 <br>
 <a href="/logout">Logout</a>
 </body>

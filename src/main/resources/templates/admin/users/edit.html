@@ -16,6 +16,14 @@
         <label for="password">Edit password: </label>
         <input type="text" th:field="*{password}" id="password">
     <br>
+
+    <label for="ADMIN">Admin</label>
+    <input type="checkbox" th:field="*{ROLE}" id="ADMIN" name="ADMIN" th:value="ROLE_ADMIN">
+    <br>
+    <label for="USER">User</label>
+    <input type="checkbox" th:field="*{ROLE}" id="USER" name="USER" th:value="ROLE_USER">
+    <br>
+
     <input type="submit" VALUE="Update user">
 </form>
 
