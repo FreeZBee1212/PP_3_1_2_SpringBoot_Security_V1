@@ -1,52 +1,37 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Role {
+@Table(name = "roles")
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    private String ROLE_ADMIN;
-    private String ROLE_USER;
+    @Column(name = "role", unique = true)
+    private String role;
 
+    @Transient
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
-//    private List<User> users;
-
-    private String name;
-
+    private Set<User> users;
 
     public Role() {
     }
 
-    public Role(String ROLE_ADMIN, String ROLE_USER, String name) {
-        this.ROLE_ADMIN = ROLE_ADMIN;
-        this.ROLE_USER = ROLE_USER;
-        this.name = name;
+    public Role(String role) {
+        this.role = role;
     }
 
-    public String getROLE_ADMIN() {
-        return ROLE_ADMIN;
+    public Role(Long id, String role) {
+        this.id = id;
+        this.role = role;
     }
-
-    public void setROLE_ADMIN(String ROLE_ADMIN) {
-        this.ROLE_ADMIN = ROLE_ADMIN;
-    }
-
-    public String getROLE_USER() {
-        return ROLE_USER;
-    }
-
-    public void setROLE_USER(String ROLE_USER) {
-        this.ROLE_USER = ROLE_USER;
-    }
-
 
 
     public Long getId() {
@@ -57,11 +42,45 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+
+    @Override
+    public String getAuthority() {
+        return role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(getId(), role.id) &&
+                Objects.equals(getRole(), role.role)
+                && Objects.equals(getUsers(), role.users);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getRole(), getUsers());
+    }
+
+    @Override
+    public String toString() {
+        return role;
     }
 }
