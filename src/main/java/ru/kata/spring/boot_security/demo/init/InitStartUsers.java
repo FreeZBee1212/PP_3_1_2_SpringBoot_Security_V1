@@ -32,7 +32,7 @@ public class InitStartUsers {
         Collections.addAll(adminRoles, roleAdmin, roleUser);
         admin.setId(1L);
         admin.setUsername("admin");
-        admin.setPassword("admin");
+        admin.setPassword(("$2a$12$hWxbaYoFF0vBCa8m.VVl8up5oOpvb31uC.G3szPEBIMxHH0lsVuCS"));
         admin.setSurname("admin");
         admin.setAge(21);
         admin.setEmail("admin@mail.ru");
@@ -44,7 +44,7 @@ public class InitStartUsers {
         Collections.addAll(userRoles, roleUser);
         user.setId(2L);
         user.setUsername("user");
-        user.setPassword("user");
+        user.setPassword("$2a$12$.dksYsGuStqzMfofRpdYOudElB3pT/KqqAxWvCyTfWZHhh2QcKPM2");
         user.setSurname("user");
         user.setAge(22);
         user.setEmail("user@mail.ru");

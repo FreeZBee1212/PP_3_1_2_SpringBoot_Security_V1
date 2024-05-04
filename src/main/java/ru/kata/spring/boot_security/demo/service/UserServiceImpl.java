@@ -54,14 +54,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
     public void saveUser(User user) {
         user.setPassword(user.getPassword());
         userRepository.saveAndFlush(user);
     }
 
     @Override
-    @Transactional
     public void updateUser(Long id, User user) {
         Optional<User> userById = userRepository.findById(id);
         if (userById.isPresent()) {
@@ -82,7 +80,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
@@ -92,13 +89,5 @@ public class UserServiceImpl implements UserService {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getUserByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-        }
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), user.getAuthorities());
-    }
+
 }
