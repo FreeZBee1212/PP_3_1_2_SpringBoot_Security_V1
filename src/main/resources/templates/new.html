@@ -3,7 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Update user</title>
+    <title>Create user</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
     <input type="text" th:field="*{surname}" id="surname">
     <br/>
     <label for="age">Age</label>
-    <input type="text" th:field="*{age}" id="age">
+    <input type="number" th:field="*{age}" id="age">
     <br/>
     <label for="email">Email</label>
     <input type="text" th:field="*{email}" id="email">

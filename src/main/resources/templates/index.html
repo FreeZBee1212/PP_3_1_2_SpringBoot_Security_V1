@@ -9,40 +9,201 @@
 </head>
 <body>
 
+
+<title>Logout</title>
+<style>
+    .logout-link {
+        display: inline-block;
+        padding: 8.5px 20px;
+        background-color: #424040;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-link:hover {
+        background-color: #d32f2f;
+    }
+</style>
+
+<title>Right-Aligned Text</title>
+<style>
+    .container {
+        width: 100%;
+    }
+
+    .right-aligned-text {
+        text-align: right;
+    }
+</style>
+
+
+<title>Полоска сверху</title>
+<style>
+    .black-background {
+        position: relative;
+        width: 100%;
+        height: 36px; /* Высота вашего фона */
+        background-color: #424040;
+    }
+
+    .text-on-background {
+        position: absolute;
+        top: 50%; /* Расположение текста по вертикали (по центру) */
+        left: 16.5%; /* Расположение текста по горизонтали (по центру) */
+        transform: translate(-50%, -50%); /* Центрирование текста */
+        color: white; /* Цвет текста */
+        font-size: 24px; /* Размер текста */
+        font-weight: bold; /* Жирный шрифт */
+    }
+</style>
+
+
+
+
+
+<title>Перемещение текста All users</title>
+<style>
+    .text {
+        margin-right: 1025px; /* Перемещает текст вправо на 20 пикселей */
+
+    }
+
+</style>
+
+
+
+
 <title>All Users</title>
 <style>
     table {
         border-collapse: collapse;
-        width: 100%;
+        width: 75%;
+        float: right;
+        position: relative; /* Устанавливает позиционирование относительно родительского элемента */
+        top: 150px; /* Смещает таблицу вниз на 50 пикселей относительно исходной позиции */
     }
 
     th, td {
-        border: 1px solid #543e5e;
+        border: 1px solid #9b8383;
         text-align: left;
         padding: 8px;
     }
 
     th {
-        background-color: #bad9c7;
+        background-color: #ffffff;
     }
 </style>
+
+
+<div class="black-background">
+    <div class="text-on-background"><a th:text="${user.getEmail()}">  <span style="font-weight: bold; color: white;"> user </span> </a> with roles: <a th:text="${user.getRoles()}" >user</a></div>
+
+    <div class="container">
+        <p class="right-aligned-text"><a href="/logout" class="logout-link">Logout</a></p>
+    </div>
+
+</div>
+
+
 <table>
+    <caption><p><h2> <span class="text"> All users </span> </h2></p></caption>
     <thead>
     <tr>
-        <th>Пользователи</th>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
+
     <tr th:each="user : ${users}">
-        <td><a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getUsername()}">user</a></td>
+        <td> <a th:text="${user.getId()}" >user</a> </td>
+        <td> <a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getUsername()}">user</a> </td>
+        <td> <a th:text="${user.getSurname()}" >user</a> </td>
+        <td> <a th:text="${user.getAge()}" >user</a> </td>
+        <td> <a th:text="${user.getEmail()}" >user</a> </td>
+        <td> <a th:text="${user.getRoles()}" >user</a> </td>
+        <td> <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">
+            <input type="submit" value="Edit"/></a> </td>
+        <td> <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+            <input type="submit" value="Delete"/>
+        </form>
     </tr>
+
     </tbody>
+
 </table>
-<br/>
 
 <br/>
-<a href="admin/new">Add user</a>
-<br/><br/>
-<a href="/logout" type="submit">Logout</a>
+
+
+
+
+<!--<a href="admin/new">Add user</a>-->
+
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Update user</title>-->
+<!--</head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title>All Users</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<title>All Users</title>-->
+<!--<style>-->
+<!--    table {-->
+<!--        border-collapse: collapse;-->
+<!--        width: 100%;-->
+<!--    }-->
+
+<!--    th, td {-->
+<!--        border: 1px solid #543e5e;-->
+<!--        text-align: left;-->
+<!--        padding: 8px;-->
+<!--    }-->
+
+<!--    th {-->
+<!--        background-color: #bad9c7;-->
+<!--    }-->
+<!--</style>-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Пользователи</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="user : ${users}">-->
+<!--        <td><a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getUsername()}">user</a></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<br/>-->
+
+<!--<br/>-->
+<!--<a href="admin/new">Add user</a>-->
+<!--<br/><br/>-->
+<!--<a href="/logout" type="submit">Logout</a>-->
+<!--</body>-->
+<!--</html>-->
